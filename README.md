@@ -1,6 +1,21 @@
-# Getting Started with Create React App
+# Getting Started with this project
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Installation
+
+1. Clone the repository:
+     ### `git clone https://github.com/RaymondZziwa/only.co-interview.git`
+
+2. Navigate to the project directory:
+
+    ### `cd only-interview-proj`
+    
+3. Install dependencies:
+
+    ### `npm install`
+
+## Usage
 
 ## Available Scripts
 
