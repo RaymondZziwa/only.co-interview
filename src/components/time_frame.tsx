@@ -3,7 +3,7 @@ import Circle from './circle';
 import { timePeriods } from '../data/sample_data';
 import ControlCenterSection from './control_center';
 import { useTimeFrameContext } from '../context/TimeFrameContext';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 
@@ -13,19 +13,31 @@ const TimeFrame= () => {
   const { index, goToNextPeriod, goToPreviousPeriod, totalTimePeriods, startYear, endYear } = useTimeFrameContext();
   const yearStartRef = useRef<HTMLDivElement>(null);
   const yearEndRef = useRef<HTMLDivElement>(null);
-
-  const countDown = (element: gsap.TweenTarget, newValue: number) => {
-    gsap.to(element, {
-      duration: 0.5,
-      innerText: newValue,
-      snap: { innerText: 1 }, 
-    });
-  };
+  const [animationTrigger, setAnimationTrigger] = useState<number>(0);
 
   useEffect(() => {
-    countDown(yearStartRef.current, startYear);
-    countDown(yearEndRef.current, endYear);
-  }, [endYear, index, startYear]);
+    let timer: number = 0;
+
+    const countDownAnimation = (element: gsap.TweenTarget, value: number) => {
+      gsap.to(element, {
+        duration: 0.5,
+        innerText: value,
+        snap: { innerText: 1 },
+      });
+    };
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+
+    timer = window.setTimeout(() => {
+      countDownAnimation(yearStartRef.current, startYear);
+      countDownAnimation(yearEndRef.current, endYear);
+      setAnimationTrigger((prevTrigger) => prevTrigger + 1); 
+    }, 150);
+
+    return () => clearTimeout(timer);
+  }, [startYear, endYear, animationTrigger]);
   
 
   return (
