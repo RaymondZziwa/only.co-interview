@@ -14,6 +14,7 @@ const TimeFrame= () => {
   const yearStartRef = useRef<HTMLDivElement>(null);
   const yearEndRef = useRef<HTMLDivElement>(null);
   const [animationTrigger, setAnimationTrigger] = useState<number>(0);
+  
 
   useEffect(() => {
     let timer: number = 0;
@@ -48,7 +49,7 @@ const TimeFrame= () => {
           <PeriodStart ref={yearStartRef}>{startYear}</PeriodStart>
 
           <PeriodEnd ref={yearEndRef}>{endYear}</PeriodEnd>
-        <Circle height={600} width={600} numberOfPoints={totalTimePeriods} />
+        <Circle index={index} height={600} width={600} numberOfPoints={totalTimePeriods} />
         <ControlsWrapper>
             <ControlCenterSection goToNextPeriod={goToNextPeriod} goToPreviousPeriod={goToPreviousPeriod} currentIndex={index} totalPeriods={timePeriods.length} />
         </ControlsWrapper>

@@ -43,6 +43,7 @@ export const PeriodStart = styled.span`
   transform: translate(-50%, -50%);
   left: 30%;
   color:#186bf0;
+  z-index:5;
 `;
 
 export const PeriodEnd = styled.span`
@@ -54,6 +55,7 @@ export const PeriodEnd = styled.span`
   transform: translate(-50%, -50%);
   left: 66%;
   color:#ed3ebb;
+  z-index:5;
 `;
 
 export const EventTabStyle = styled.div`
