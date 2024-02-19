@@ -2,7 +2,7 @@ import EventList from './components/events_list';
 import TimeFrame from './components/time_frame';
 import { Container } from './styled/styles';
 import { timePeriods, events } from './data/sample_data';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { TimeFrameContext } from './context/TimeFrameContext';
 import './App.scss'; 
 

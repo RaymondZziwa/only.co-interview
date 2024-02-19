@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
 
 interface CircleProps {
+  index: number;
   width: number;
   height: number;
   numberOfPoints: number;
 }
 
-const Circle: React.FC<CircleProps> = ({ width, height, numberOfPoints }) => {
+const Circle: React.FC<CircleProps> = ({ index, width, height, numberOfPoints }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 600, height: 600 });
   const [hoveredPoint, setHoveredPoint] = useState<number | null>(null);
@@ -14,6 +16,18 @@ const Circle: React.FC<CircleProps> = ({ width, height, numberOfPoints }) => {
   const radius = Math.min(width, height) / 3;
   const centerX = width / 2;
   const centerY = height / 2;
+
+  useEffect(() => {
+    const circle = canvasRef.current;
+
+    if (circle) {
+      gsap.to(circle, {
+        rotation: index * 360, 
+        duration: 1, 
+        ease: 'power2.inOut' 
+      });
+    }
+  }, [index]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
