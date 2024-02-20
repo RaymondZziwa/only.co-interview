@@ -62,8 +62,9 @@ export const PeriodEnd = styled.span`
 
 export const EventTabStyle = styled.div`
   display: inline-block;
-  padding: 5%;
-  margin-top: -10%;
+  padding-left: 5%;
+  margin-top: -12%;
+  cursor:grab;
 `;
 
 
@@ -76,4 +77,11 @@ export const EventHeader = styled.h6`
   color: #186bf0;
   font-size:18px;
   font-family: "Rubik", sans-serif;
+`;
+
+export const EventViewControllerWrapper = styled.div`
+align-items: center; 
+
+/* Optional padding or margins */
+padding: 0 20px; 
 `;
