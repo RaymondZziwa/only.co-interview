@@ -10,7 +10,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 gsap.registerPlugin(ScrollToPlugin);
 
 const TimeFrame= () => {
-  const { index, goToNextPeriod, goToPreviousPeriod, totalTimePeriods, startYear, endYear } = useTimeFrameContext();
+  const { goToPeriod, index, goToNextPeriod, goToPreviousPeriod, totalTimePeriods, startYear, endYear } = useTimeFrameContext();
   const yearStartRef = useRef<HTMLDivElement>(null);
   const yearEndRef = useRef<HTMLDivElement>(null);
   const [animationTrigger, setAnimationTrigger] = useState<number>(0);
@@ -49,7 +49,7 @@ const TimeFrame= () => {
           <PeriodStart ref={yearStartRef}>{startYear}</PeriodStart>
 
           <PeriodEnd ref={yearEndRef}>{endYear}</PeriodEnd>
-        <Circle index={index} height={600} width={600} numberOfPoints={totalTimePeriods} />
+        <Circle index={index} height={600} width={600} numberOfPoints={totalTimePeriods} goToPeriod={goToPeriod}/>
         <ControlsWrapper>
             <ControlCenterSection goToNextPeriod={goToNextPeriod} goToPreviousPeriod={goToPreviousPeriod} currentIndex={index} totalPeriods={timePeriods.length} />
         </ControlsWrapper>

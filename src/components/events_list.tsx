@@ -1,6 +1,9 @@
-import React, { useEffect, useRef } from 'react'
-import { EventHeader, EventParagraph, EventTabStyle } from '../styled/styles'
+import React, { useEffect, useRef } from 'react';
+import { EventHeader, EventParagraph, EventTabStyle } from '../styled/styles';
 import gsap from 'gsap';
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css';
+
 type Event = {
   year: number;
   event: string;
@@ -12,7 +15,6 @@ type EventListProps = {
 
 const EventList: React.FC<EventListProps> = ({ events }) => {
   const eventListRef = useRef(null);
-
 
   useEffect(() => {
     if (eventListRef.current) {
@@ -27,6 +29,20 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
     }
   }, [events]);
 
+  useEffect(() => {
+    if (eventListRef.current) {
+      new Swiper(eventListRef.current, {
+        direction: 'horizontal',
+        slidesPerView: 'auto',
+        spaceBetween: 20,
+        scrollbar: {
+          el: '.swiper-scrollbar',
+          hide: false,
+        },
+      });
+    }
+}, [eventListRef, events]);
+
   const wrapText = (text: string) => {
     const words = text.split(' ');
     const chunks = [];
@@ -37,15 +53,17 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
   };
 
   return (
-    <div ref={eventListRef}>
-      {events.map((event, index) => (
-        <EventTabStyle key={index}>
-          <EventHeader>{event.year}</EventHeader>
-          <EventParagraph>{wrapText(event.event)}</EventParagraph>
-        </EventTabStyle>
-      ))}
+    <div ref={eventListRef} className="swiper-container">
+      <div className="swiper-wrapper">
+        {events.map((event, index) => (
+          <EventTabStyle key={index}>
+            <EventHeader>{event.year}</EventHeader>
+            <EventParagraph>{wrapText(event.event)}</EventParagraph>
+          </EventTabStyle>
+        ))}
+      </div>
     </div>
-  )
-}
+  );
+};
 
 export default EventList;

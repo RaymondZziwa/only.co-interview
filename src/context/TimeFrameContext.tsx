@@ -2,6 +2,7 @@
 import { createContext, useContext } from 'react';
 
 interface TimeFrameContextProps {
+  goToPeriod: (index: number) => void;
   index: number;
   goToNextPeriod: () => void;
   goToPreviousPeriod: () => void;
