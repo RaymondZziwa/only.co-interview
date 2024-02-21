@@ -1,4 +1,4 @@
-import { CircularWrapper, ControlsWrapper, HeaderWrapper, PeriodEnd, PeriodStart } from '../styled/styles';
+import { CircleWrapper, CircularWrapper, ControlsWrapper, HeaderWrapper, PeriodEnd, PeriodStart } from '../styled/styles';
 import Circle from './circle';
 import { timePeriods } from '../data/sample_data';
 import ControlCenterSection from './control_center';
@@ -49,7 +49,9 @@ const TimeFrame= () => {
           <PeriodStart ref={yearStartRef}>{startYear}</PeriodStart>
 
           <PeriodEnd ref={yearEndRef}>{endYear}</PeriodEnd>
-        <Circle index={index} height={600} width={600} numberOfPoints={totalTimePeriods} goToPeriod={goToPeriod}/>
+          <CircleWrapper>
+            <Circle index={index} height={600} width={600} numberOfPoints={totalTimePeriods} goToPeriod={goToPeriod}/>
+          </CircleWrapper>
         <ControlsWrapper>
             <ControlCenterSection goToNextPeriod={goToNextPeriod} goToPreviousPeriod={goToPreviousPeriod} currentIndex={index} totalPeriods={timePeriods.length} />
         </ControlsWrapper>

@@ -9,6 +9,11 @@ export const Container = styled.div`
   border-right: 1px solid lightgray;
   overflow-x: auto;
   white-space: nowrap; 
+
+  @media (max-width: 768px) {
+    border:none;
+    width:100%;
+  }
 `;
 
 export const CircularWrapper = styled.div`
@@ -24,6 +29,11 @@ export const HeaderWrapper = styled.div `
   left: 5%;
   top: 23%;  
   transform: translateY(-50%);
+
+  @media (max-width: 768px) {
+    font-size: 25px;
+    top:15%;
+  }
 `;
 
 export const ControlsWrapper = styled.div `
@@ -46,6 +56,11 @@ export const PeriodStart = styled.span`
   left: 30%;
   color:#186bf0;
   z-index:5;
+
+  @media (max-width: 768px) {
+    font-size: 55px;
+    left:24%;
+  }
 `;
 
 export const PeriodEnd = styled.span`
@@ -58,6 +73,11 @@ export const PeriodEnd = styled.span`
   left: 66%;
   color:#ed3ebb;
   z-index:5;
+
+  @media (max-width: 768px) {
+    font-size: 55px;
+    right:5%;
+  }
 `;
 
 export const EventTabStyle = styled.div`
@@ -65,6 +85,10 @@ export const EventTabStyle = styled.div`
   padding-left: 5%;
   margin-top: -12%;
   cursor:grab;
+
+  @media (max-width: 768px) {
+    margin-top: 1%;
+  }
 `;
 
 
@@ -80,8 +104,16 @@ export const EventHeader = styled.h6`
 `;
 
 export const EventViewControllerWrapper = styled.div`
-align-items: center; 
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  cursor: pointer;
+  padding:5px;
+`;
 
-/* Optional padding or margins */
-padding: 0 20px; 
+export const CircleWrapper = styled.div`
+@media (max-width: 768px) {
+  visibility:hidden;
+  border-bottom: 1px solid grey;
+}
 `;

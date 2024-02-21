@@ -3,6 +3,9 @@ import { EventHeader, EventParagraph, EventTabStyle, EventViewControllerWrapper 
 import gsap from 'gsap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { EventsControlButtonImage } from '../styled/control_center';
+import eventsBack from '../icons/events-left.png';
+import eventsFront from '../icons/events-right.png';
 
 type Event = {
   year: number;
@@ -15,6 +18,7 @@ type EventListProps = {
 
 const EventList: React.FC<EventListProps> = ({ events }) => {
   const eventListRef = useRef(null);
+  // const swiperRef = useRef<Swiper | null>(null)
 
   useEffect(() => {
     if (eventListRef.current) {
@@ -39,28 +43,28 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
   };
 
   return (
-    <EventViewControllerWrapper>
-      <button>prev</button>
-        <div ref={eventListRef} className="swiper-container">
-            <div className="swiper-wrapper">
-                <Swiper
-                    spaceBetween={10}
-                    slidesPerView={3.4}
-                    scrollbar={{ draggable: true }}
-                >
-                    {events.map((event, index) => (
-                        <SwiperSlide key={index}>
-                            <EventTabStyle>
-                                <EventHeader>{event.year}</EventHeader>
-                                <EventParagraph>{wrapText(event.event)}</EventParagraph>
-                            </EventTabStyle>
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-        </div>
-        <button>next</button>
-    </EventViewControllerWrapper>
+  <EventViewControllerWrapper>
+    <EventsControlButtonImage  src={eventsBack} alt="Back button"/>
+    <div className="swiper-container" ref={eventListRef} style={{width:'90%', margin:'auto'}}>
+      <div className="swiper-wrapper">
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={3.4}
+          scrollbar={{ draggable: true }}
+        >
+          {events.map((event, index) => (
+            <SwiperSlide key={index}>
+              <EventTabStyle>
+                <EventHeader>{event.year}</EventHeader>
+                <EventParagraph>{wrapText(event.event)}</EventParagraph>
+              </EventTabStyle>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </div>
+    <EventsControlButtonImage src={eventsFront}  alt="Front button"/>
+  </EventViewControllerWrapper>
   );
 };
 

@@ -64,6 +64,27 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
       context.fill();
 
       //context.canvas.addEventListener('click', (e) => handlePointClick(e, i));
+      if (i === hoveredPoint || i === index) {
+        const topRightX = centerX + radius * Math.cos((5 / numberOfPoints) * 2 * Math.PI);
+        const topRightY = centerY + radius * Math.sin((5 / numberOfPoints) * 2 * Math.PI);
+
+        context.fillStyle = 'white';
+        context.beginPath();
+        context.arc(topRightX, topRightY, i === index ? 20 : 3, 0, 2 * Math.PI);
+        context.fill();
+        context.fillStyle = '#365180';
+        context.font = '12px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(`${i === index ? `${index}` : i}`, topRightX, topRightY);
+    } else {
+        context.fillStyle = 'black';
+        context.strokeStyle = 'grey';
+        context.beginPath();
+        context.arc(x, y, 3, 0, 2 * Math.PI);
+        context.fill();
+    }
+    
       if (i === hoveredPoint) {
         context.fillStyle = '#365180';
         context.font = '12px Arial';
@@ -72,7 +93,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
         context.fillText(`${i}`, x, y);
       }
     }
-  }, [width, height, numberOfPoints, hoveredPoint, centerX, centerY, radius]);
+  }, [width, height, numberOfPoints, hoveredPoint, centerX, centerY, radius, index]);
 
   
 

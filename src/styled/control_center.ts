@@ -27,3 +27,10 @@ export const ButtonImage = styled.img`
   height: 40%;
   object-fit: cover; 
 `;
+
+export const EventsControlButtonImage = styled.img`
+  display:inline-block;
+  width: 30px;
+  background-color:white;
+  border-radius: 100%;
+`;
