@@ -7,6 +7,8 @@ export const Container = styled.div`
   width:80%;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
+  overflow-x: auto;
+  white-space: nowrap; 
 `;
 
 export const CircularWrapper = styled.div`
@@ -60,7 +62,7 @@ export const PeriodEnd = styled.span`
 
 export const EventTabStyle = styled.div`
   display: inline-block;
-  padding: 2%;
+  padding: 5%;
   margin-top: -10%;
 `;
 

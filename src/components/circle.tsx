@@ -6,9 +6,10 @@ interface CircleProps {
   width: number;
   height: number;
   numberOfPoints: number;
+  goToPeriod: (index: number) => void;
 }
 
-const Circle: React.FC<CircleProps> = ({ index, width, height, numberOfPoints }) => {
+const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numberOfPoints }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [canvasSize, setCanvasSize] = useState({ width: 600, height: 600 });
   const [hoveredPoint, setHoveredPoint] = useState<number | null>(null);
@@ -62,6 +63,7 @@ const Circle: React.FC<CircleProps> = ({ index, width, height, numberOfPoints })
       context.arc(x, y, i === hoveredPoint ? 20 : 3, 0, 2 * Math.PI); 
       context.fill();
 
+      //context.canvas.addEventListener('click', (e) => handlePointClick(e, i));
       if (i === hoveredPoint) {
         context.fillStyle = '#365180';
         context.font = '12px Arial';
@@ -78,11 +80,18 @@ const Circle: React.FC<CircleProps> = ({ index, width, height, numberOfPoints })
     setHoveredPoint(index);
   };
 
+  const handlePointClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
+      goToPeriod(index);
+    }
+
+  
+
   return (
     <canvas
       ref={canvasRef}
       width={canvasSize.width}
       height={canvasSize.height}
+      //onClick={handlePointClick}
       onMouseOver={(e)=> {
        const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;

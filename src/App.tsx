@@ -15,6 +15,10 @@ function App() {
   const [index, setIndex] = useState(1);
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([]);
 
+  const goToPeriod = (index: number) => {
+    setIndex(index);
+  };
+
   const goToNextPeriod = () => {
     setIndex(prevIndex => prevIndex + 1);
   };
@@ -36,13 +40,13 @@ function App() {
   },[startYear, endYear, index])
   
   return (
-    <TimeFrameContext.Provider value={{ index, goToNextPeriod, goToPreviousPeriod, totalTimePeriods, startYear, endYear }}>
-      <div className="App">
-        <Container>
-          <TimeFrame />
-          <EventList events={filteredEvents}/>
-        </Container>
-      </div>
+    <TimeFrameContext.Provider value={{ index, goToPeriod, goToNextPeriod, goToPreviousPeriod, totalTimePeriods, startYear, endYear }}>
+        <div className="App">
+          <Container>
+            <TimeFrame />
+            <EventList events={filteredEvents}/>
+          </Container>
+        </div>
     </TimeFrameContext.Provider>
   );
 }
