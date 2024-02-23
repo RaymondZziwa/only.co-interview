@@ -19,7 +19,7 @@ export const events: Event [][] = [
 // Events for the period 1991-1995
 [
     { year: 1991, event: 'The World Wide Web is introduced to the public.' },
-    { year: 1992, event: 'European nations combine efforts to create the EU (European Union).' },
+    { year: 1992, event: 'European nations combine to create the EU (European Union).' },
     { year: 1994, event: 'Nelson Mandela becomes the first black president of South Africa.' },
     { year: 1995, event: 'The Dayton Agreement is signed, ending the Bosnian War.' }
   ],
@@ -51,7 +51,7 @@ export const events: Event [][] = [
   // Events for the period 2011-2015
   [
     { year: 2011, event: 'The Arab Spring protests begin.' },
-    { year: 2013, event: 'Edward Snowden leaks classified NSA documents.' },
+    { year: 2013, event: 'Edward Snowden leaks NSA documents.' },
     { year: 2014, event: 'The Ebola virus outbreak occurs in West Africa.' },
     { year: 2015, event: 'The Paris Agreement on climate change is adopted.' }
   ],

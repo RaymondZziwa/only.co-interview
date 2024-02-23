@@ -1,8 +1,16 @@
 import React, { useEffect, useRef } from 'react';
-import { EventHeader, EventParagraph, EventTabStyle } from '../styled/styles';
+import { EventHeader, EventParagraph, EventTabStyle, EventViewControllerWrapper, StyledSwiper } from '../styled/styles';
 import gsap from 'gsap';
-import Swiper from 'swiper';
+import { SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
+import { EventsControlButtonImage } from '../styled/control_center';
+import eventsBack from '../icons/events-left.png';
+import eventsFront from '../icons/events-right.png';
+import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import useSwiperRef from '../hooks/swiper_custom_hook';
 
 type Event = {
   year: number;
@@ -15,6 +23,9 @@ type EventListProps = {
 
 const EventList: React.FC<EventListProps> = ({ events }) => {
   const eventListRef = useRef(null);
+  const [nextEl, nextElRef] = useSwiperRef();
+  const [prevEl, prevElRef] = useSwiperRef();
+  
 
   useEffect(() => {
     if (eventListRef.current) {
@@ -29,20 +40,6 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
     }
   }, [events]);
 
-  useEffect(() => {
-    if (eventListRef.current) {
-      new Swiper(eventListRef.current, {
-        direction: 'horizontal',
-        slidesPerView: 'auto',
-        spaceBetween: 20,
-        scrollbar: {
-          el: '.swiper-scrollbar',
-          hide: false,
-        },
-      });
-    }
-}, [eventListRef, events]);
-
   const wrapText = (text: string) => {
     const words = text.split(' ');
     const chunks = [];
@@ -53,16 +50,51 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
   };
 
   return (
-    <div ref={eventListRef} className="swiper-container">
-      <div className="swiper-wrapper">
-        {events.map((event, index) => (
-          <EventTabStyle key={index}>
-            <EventHeader>{event.year}</EventHeader>
-            <EventParagraph>{wrapText(event.event)}</EventParagraph>
-          </EventTabStyle>
-        ))}
+    <EventViewControllerWrapper>
+      <EventsControlButtonImage src={eventsBack} ref={prevElRef} alt='Scroll Previous button' />
+      <div className="swiper-container" ref={eventListRef} style={{width:"90%",margin:'auto'}}>
+        <div className="swiper-wrapper">
+          <StyledSwiper
+            modules={[Pagination, Navigation, Scrollbar]}
+            spaceBetween={10}
+            slidesPerView={3.4}
+            navigation={{
+              prevEl,
+              nextEl,
+            }}
+            scrollbar={{ draggable: true }}
+            pagination={{ clickable: true }}
+            breakpoints = {{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 1.5,
+                spaceBetween: 100
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 2.4,
+                spaceBetween: 10
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 3.4,
+                spaceBetween: 10
+              }
+            }}
+          >
+            {events.map((event, index) => (
+              <SwiperSlide key={index}>
+                <EventTabStyle>
+                  <EventHeader>{event.year}</EventHeader>
+                  <EventParagraph>{wrapText(event.event)}</EventParagraph>
+                </EventTabStyle>
+              </SwiperSlide>
+            ))}
+          </StyledSwiper>
+        </div>
       </div>
-    </div>
+      <EventsControlButtonImage  src={eventsFront} ref={nextElRef} alt='Scroll Next button' />
+    </EventViewControllerWrapper>
   );
 };
 
