@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import { CirclePoint } from '../styled/styles';
 
 interface CircleProps {
   index: number;
@@ -63,7 +64,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
       context.arc(x, y, i === hoveredPoint ? 20 : 3, 0, 2 * Math.PI); 
       context.fill();
 
-      //context.canvas.addEventListener('click', (e) => handlePointClick(e, i));
+  
       if (i === hoveredPoint || i === index) {
         const topRightX = centerX + radius * Math.cos((5 / numberOfPoints) * 2 * Math.PI);
         const topRightY = centerY + radius * Math.sin((5 / numberOfPoints) * 2 * Math.PI);
@@ -99,20 +100,51 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
   const handlePointHover = (index: number) => {
     setHoveredPoint(index);
+    gsap.to(`#point-${index}`, {
+      scale: 1.5,
+      duration: 0.3,
+      ease: 'power2.inOut',
+      onComplete: () => {
+        gsap.to(`#text-${index}`, {
+          opacity: 1,
+          duration: 0.3,
+          ease: 'power2.inOut',
+        });
+      },
+    });
   };
 
-  const handlePointClick = (e: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
-      goToPeriod(index);
-    }
+  const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
 
-  
+    // Check if the mouse coordinates are within the circle
+    const distance = Math.sqrt((x - width / 2) ** 2 + (y - height / 2) ** 2);
+    if (distance <= radius) {
+      // Calculate the angle and determine the index of the clicked point
+      const angle = Math.atan2(y - height / 2, x - width / 2);
+      let clickedIndex = Math.round((angle / (2 * Math.PI) + 1) * numberOfPoints) % numberOfPoints;
+
+      // Adjust the index based on the starting angle
+      clickedIndex = (clickedIndex + numberOfPoints) % numberOfPoints;
+
+      // Call the handleOnClick function with the clicked index
+      handleOnClick(clickedIndex);
+    }
+  };
+
+  const handleOnClick = (index: number) => {
+    goToPeriod(index)
+  }
+
 
   return (
     <canvas
       ref={canvasRef}
       width={canvasSize.width}
       height={canvasSize.height}
-      //onClick={handlePointClick}
+      onClick={handleCanvasClick}
       onMouseOver={(e)=> {
        const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
@@ -136,6 +168,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
       onMouseOut={() => setHoveredPoint(null)}
     />
   );
+
 };
 
 export default Circle;
