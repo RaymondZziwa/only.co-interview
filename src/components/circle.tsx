@@ -50,11 +50,6 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
     context.strokeStyle = 'lightgray';
     context.stroke();
 
-     // Draw the dividing line from top to bottom
-     context.moveTo(centerX, centerY - radius);
-     context.lineTo(centerX, centerY + radius);
-     context.stroke();
-
     // Draw evenly distributed points on the circle
     for (let i = 0; i < numberOfPoints; i++) {
       const angle = (i / numberOfPoints) * 2 * Math.PI;

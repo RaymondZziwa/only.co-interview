@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { EventHeader, EventParagraph, EventTabStyle, EventViewControllerWrapper, StyledSwiper } from '../styled/styles';
 import gsap from 'gsap';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { EventsControlButtonImage } from '../styled/control_center';
 import eventsBack from '../icons/events-left.png';
@@ -10,6 +10,7 @@ import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import useSwiperRef from '../hooks/swiper_custom_hook';
 
 type Event = {
   year: number;
@@ -22,13 +23,9 @@ type EventListProps = {
 
 const EventList: React.FC<EventListProps> = ({ events }) => {
   const eventListRef = useRef(null);
-  const swiperRef = useRef(null) as any;
-
-  const handleNextClick = () => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  };
+  const [nextEl, nextElRef] = useSwiperRef();
+  const [prevEl, prevElRef] = useSwiperRef();
+  
 
   useEffect(() => {
     if (eventListRef.current) {
@@ -54,14 +51,17 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
 
   return (
     <EventViewControllerWrapper>
-      <div className="swiper-container" ref={eventListRef}>
-        <div className="swiper-wrapper" style={{width:"80%",margin:'auto'}}>
+      <EventsControlButtonImage src={eventsBack} ref={prevElRef} alt='Scroll Previous button' />
+      <div className="swiper-container" ref={eventListRef} style={{width:"90%",margin:'auto'}}>
+        <div className="swiper-wrapper">
           <StyledSwiper
             modules={[Pagination, Navigation, Scrollbar]}
             spaceBetween={10}
-            ref={swiperRef}
             slidesPerView={3.4}
-            navigation = {true}
+            navigation={{
+              prevEl,
+              nextEl,
+            }}
             scrollbar={{ draggable: true }}
             pagination={{ clickable: true }}
             breakpoints = {{
@@ -93,6 +93,7 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
           </StyledSwiper>
         </div>
       </div>
+      <EventsControlButtonImage  src={eventsFront} ref={nextElRef} alt='Scroll Next button' />
     </EventViewControllerWrapper>
   );
 };

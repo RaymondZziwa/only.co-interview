@@ -30,14 +30,14 @@ export const CircularWrapper = styled.div`
 export const HeaderWrapper = styled.div `
   position: absolute;
   font-family: "Rubik", sans-serif;
-  font-size: 58px;
+  font-size: 68px;
   color:#111b66;
   left: 5%;
-  top: 15%;  
+  top: 12%;  
   transform: translateY(-50%);
 
   @media (max-width: 768px) {
-    font-size: 25px;
+    font-size: 35px;
     top:15%;
   }
 `;
@@ -47,7 +47,7 @@ export const PeriodStart = styled.span`
   font-size: 140px;
   font-weight: bold;
   font-family: "Rubik", sans-serif;
-  top: 38%;
+  top: 35%;
   transform: translate(-50%, -50%);
   left: 30%;
   color:#186bf0;
@@ -64,7 +64,7 @@ export const PeriodEnd = styled.span`
   font-size: 140px;
   font-weight: bold;
   font-family: "Rubik", sans-serif;
-  top: 38%;
+  top: 35%;
   transform: translate(-50%, -50%);
   left: 66%;
   color:#ed3ebb;
@@ -80,6 +80,7 @@ export const EventTabStyle = styled.div`
   display: inline-block;
   padding-left: 5%;
   margin-top: -4%;
+  height:230px;
   cursor:grab;
   padding-bottom:50px;
 `;
@@ -97,6 +98,8 @@ export const EventHeader = styled.h6`
 `;
 
 export const EventViewControllerWrapper = styled.div`
+  display: flex;
+  align-items: center;
   cursor: pointer;
   padding:5px;
   margin-top:-6%;
@@ -133,6 +136,8 @@ export const ControlsWrapper = styled.div `
 `;
 
 export const EventListWrapper = styled.div`
+  position: relative;
+
   @media (max-width: 768px) {
     border-top:1px solid lightgray;
     order: 1;
