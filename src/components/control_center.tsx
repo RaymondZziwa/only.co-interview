@@ -13,7 +13,7 @@ interface ControlCenterSectionProps {
 const ControlCenterSection: React.FC<ControlCenterSectionProps> = ({ goToNextPeriod, goToPreviousPeriod, totalPeriods, currentIndex }) => {
   return (
     <ControlCenter>
-      <p>{`${currentIndex}/${totalPeriods}`}</p>
+      <p>{`${String(currentIndex).padStart(2, '0')}/${String(totalPeriods).padStart(2, '0')}`}</p>
       <CircularButton onClick={goToPreviousPeriod}>
         <ButtonBack />
       </CircularButton>

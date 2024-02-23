@@ -1,11 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { EventHeader, EventParagraph, EventTabStyle, EventViewControllerWrapper } from '../styled/styles';
+import { EventHeader, EventParagraph, EventTabStyle, EventViewControllerWrapper, StyledSwiper } from '../styled/styles';
 import gsap from 'gsap';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { EventsControlButtonImage } from '../styled/control_center';
 import eventsBack from '../icons/events-left.png';
 import eventsFront from '../icons/events-right.png';
+import { Pagination, Navigation, Scrollbar } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 type Event = {
   year: number;
@@ -18,7 +22,13 @@ type EventListProps = {
 
 const EventList: React.FC<EventListProps> = ({ events }) => {
   const eventListRef = useRef(null);
-  // const swiperRef = useRef<Swiper | null>(null)
+  const swiperRef = useRef(null) as any;
+
+  const handleNextClick = () => {
+    if (swiperRef.current) {
+      swiperRef.current.slideNext();
+    }
+  };
 
   useEffect(() => {
     if (eventListRef.current) {
@@ -43,28 +53,47 @@ const EventList: React.FC<EventListProps> = ({ events }) => {
   };
 
   return (
-  <EventViewControllerWrapper>
-    <EventsControlButtonImage  src={eventsBack} alt="Back button"/>
-    <div className="swiper-container" ref={eventListRef} style={{width:'90%', margin:'auto'}}>
-      <div className="swiper-wrapper">
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={3.4}
-          scrollbar={{ draggable: true }}
-        >
-          {events.map((event, index) => (
-            <SwiperSlide key={index}>
-              <EventTabStyle>
-                <EventHeader>{event.year}</EventHeader>
-                <EventParagraph>{wrapText(event.event)}</EventParagraph>
-              </EventTabStyle>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <EventViewControllerWrapper>
+      <div className="swiper-container" ref={eventListRef}>
+        <div className="swiper-wrapper" style={{width:"80%",margin:'auto'}}>
+          <StyledSwiper
+            modules={[Pagination, Navigation, Scrollbar]}
+            spaceBetween={10}
+            ref={swiperRef}
+            slidesPerView={3.4}
+            navigation = {true}
+            scrollbar={{ draggable: true }}
+            pagination={{ clickable: true }}
+            breakpoints = {{
+              // when window width is >= 320px
+              320: {
+                slidesPerView: 1.5,
+                spaceBetween: 100
+              },
+              // when window width is >= 480px
+              480: {
+                slidesPerView: 2.4,
+                spaceBetween: 10
+              },
+              // when window width is >= 640px
+              640: {
+                slidesPerView: 3.4,
+                spaceBetween: 10
+              }
+            }}
+          >
+            {events.map((event, index) => (
+              <SwiperSlide key={index}>
+                <EventTabStyle>
+                  <EventHeader>{event.year}</EventHeader>
+                  <EventParagraph>{wrapText(event.event)}</EventParagraph>
+                </EventTabStyle>
+              </SwiperSlide>
+            ))}
+          </StyledSwiper>
+        </div>
       </div>
-    </div>
-    <EventsControlButtonImage src={eventsFront}  alt="Front button"/>
-  </EventViewControllerWrapper>
+    </EventViewControllerWrapper>
   );
 };
 
