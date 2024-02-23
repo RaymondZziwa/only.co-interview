@@ -1,23 +1,58 @@
 import styled from "styled-components";
 import { Swiper } from "swiper/react";
 
-
 export const Container = styled.div`
   margin: auto;
   height: 100%;
-  width:80%;
+  width: 80%;
   border-left: 1px solid lightgray;
   border-right: 1px solid lightgray;
   overflow-x: auto;
-  white-space: nowrap; 
+  white-space: nowrap;
+  position: relative;
 
   @media (max-width: 768px) {
-    border:none;
-    width:100%;
-    height:1000px;
-    z-index:2;
+    border: none;
+    width: 100%;
+    height: 1000px;
+    z-index: 2;
+
+    &::before,
+    &::after {
+      display: none; 
+    }
+  }
+
+  &::before {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    top: 36.8%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: lightgray;
+  }
+
+  &::after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: lightgray;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    background: rgba(169, 169, 169, 0.2); 
   }
 `;
+
 
 export const CircularWrapper = styled.div`
   position: relative;
@@ -47,9 +82,9 @@ export const PeriodStart = styled.span`
   font-size: 140px;
   font-weight: bold;
   font-family: "Rubik", sans-serif;
-  top: 35%;
+  top: 36%;
   transform: translate(-50%, -50%);
-  left: 30%;
+  left: 32%;
   color:#186bf0;
   z-index:5;
 
@@ -64,9 +99,9 @@ export const PeriodEnd = styled.span`
   font-size: 140px;
   font-weight: bold;
   font-family: "Rubik", sans-serif;
-  top: 35%;
+  top: 36%;
   transform: translate(-50%, -50%);
-  left: 66%;
+  left: 70%;
   color:#ed3ebb;
   z-index:5;
 
@@ -195,4 +230,13 @@ export const StyledSwiper = styled(Swiper)`
 
 
 export const MobileLayoutWrapper = styled.div`
+`;
+
+export const LinearComponent = styled.div`
+  display:inline-block;
+  height:100px;
+  background-image: linear-gradient(319deg, #cc4499 0%, #aa00ff 67%, #663dff 100%);
+  width:5px;
+  position:absolute;
+  top: 8%;
 `;

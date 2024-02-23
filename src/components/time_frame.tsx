@@ -1,4 +1,4 @@
-import { CircleAlignment, CircleWrapper, CircularWrapper, ControlsWrapper, EventListWrapper, HeaderWrapper, MobileLayoutWrapper, PeriodEnd, PeriodStart } from '../styled/styles';
+import { CircleAlignment, CircleWrapper, CircularWrapper, ControlsWrapper, EventListWrapper, HeaderWrapper, LinearComponent, MobileLayoutWrapper, PeriodEnd, PeriodStart } from '../styled/styles';
 import Circle from './circle';
 import { timePeriods } from '../data/sample_data';
 import ControlCenterSection from './control_center';
@@ -59,8 +59,9 @@ const TimeFrame= () => {
 
   return (
     <CircularWrapper>
+        <LinearComponent></LinearComponent>
         <HeaderWrapper>
-            History Data
+          History Data
         </HeaderWrapper>
           <PeriodStart ref={yearStartRef}>{startYear}</PeriodStart>
 
