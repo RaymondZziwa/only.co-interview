@@ -239,4 +239,18 @@ export const LinearComponent = styled.div`
   width:5px;
   position:absolute;
   top: 8%;
+
+  @media (max-width: 768px) {
+    visibility: hidden;
+  }
+`;
+
+export const CirclePoint = styled.button`
+  height: 10px;
+  width: 2px;
+  border-radius: 50%;
+  background-color: black;
+  margin-bottom: 50px;
+  cursor: pointer;
+  border:none;
 `;
