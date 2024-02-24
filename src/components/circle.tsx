@@ -23,7 +23,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
     if (circle) {
       gsap.to(circle, {
-        rotation: index * 720, 
+        rotation: index * 360, 
         duration: 1, 
         ease: 'power2.inOut' 
       });
@@ -52,8 +52,8 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
 
     // Draw evenly distributed points on the circle
-    for (let i = 1; i <= numberOfPoints; i++) {
-      const angle = (i / numberOfPoints) * 2 * Math.PI;
+    for (let i = 0; i <= numberOfPoints; i++) {
+    const angle = (i / numberOfPoints) * 5 * Math.PI;
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
 
@@ -82,14 +82,6 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
         context.textAlign = 'center';
         context.textBaseline = 'middle';
         context.fillText(`${index}`, textX, textY);
-
-      } else if (i === hoveredPoint) {
-        // Draw the index at the hovered point
-        context.fillStyle = '#365180';
-        context.font = '12px Arial';
-        context.textAlign = 'center';
-        context.textBaseline = 'middle';
-        context.fillText(`${i}`, x, y);
       }
     
       if (i === hoveredPoint) {
@@ -107,7 +99,6 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
   const handlePointHover = (index: number) => {
     setHoveredPoint(index);
-
   };
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -126,15 +117,9 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
       clickedIndex = (clickedIndex + numberOfPoints) % numberOfPoints;
 
       // Call the handleOnClick function with the clicked index
-      handleOnClick(clickedIndex);
+      goToPeriod(clickedIndex);
     }
   };
-
-  //on click button to go to another period
-  const handleOnClick = (index: number) => {
-    goToPeriod(index)
-  }
-
 
   return (
     <canvas
