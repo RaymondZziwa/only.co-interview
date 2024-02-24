@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { CirclePoint } from '../styled/styles';
 
 interface CircleProps {
   index: number;
@@ -24,7 +23,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
     if (circle) {
       gsap.to(circle, {
-        rotation: index * 360, 
+        rotation: index * 720, 
         duration: 1, 
         ease: 'power2.inOut' 
       });
@@ -51,8 +50,9 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
     context.strokeStyle = 'lightgray';
     context.stroke();
 
+
     // Draw evenly distributed points on the circle
-    for (let i = 0; i < numberOfPoints; i++) {
+    for (let i = 1; i <= numberOfPoints; i++) {
       const angle = (i / numberOfPoints) * 2 * Math.PI;
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
@@ -65,26 +65,32 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
       context.fill();
 
   
-      if (i === hoveredPoint || i === index) {
-        const topRightX = centerX + radius * Math.cos((5 / numberOfPoints) * 2 * Math.PI);
-        const topRightY = centerY + radius * Math.sin((5 / numberOfPoints) * 2 * Math.PI);
+      if (i === index) {
+        // Always position the index text at specific coordinates
+        const textX = 400;
+        const textY = 126.8;
 
+        // Draw a circle at the active point
         context.fillStyle = 'white';
         context.beginPath();
-        context.arc(topRightX, topRightY, i === index ? 20 : 3, 0, 2 * Math.PI);
+        context.arc(textX, textY, 20, 0, 2 * Math.PI);
         context.fill();
+
+        // Display the index text at the fixed coordinates
         context.fillStyle = '#365180';
         context.font = '12px Arial';
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        context.fillText(`${i === index ? `${index}` : i}`, topRightX, topRightY);
-    } else {
-        context.fillStyle = 'black';
-        context.strokeStyle = 'grey';
-        context.beginPath();
-        context.arc(x, y, 3, 0, 2 * Math.PI);
-        context.fill();
-    }
+        context.fillText(`${index}`, textX, textY);
+
+      } else if (i === hoveredPoint) {
+        // Draw the index at the hovered point
+        context.fillStyle = '#365180';
+        context.font = '12px Arial';
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillText(`${i}`, x, y);
+      }
     
       if (i === hoveredPoint) {
         context.fillStyle = '#365180';
@@ -93,6 +99,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
         context.textBaseline = 'middle';
         context.fillText(`${i}`, x, y);
       }
+
     }
   }, [width, height, numberOfPoints, hoveredPoint, centerX, centerY, radius, index]);
 
@@ -100,18 +107,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
   const handlePointHover = (index: number) => {
     setHoveredPoint(index);
-    gsap.to(`#point-${index}`, {
-      scale: 1.5,
-      duration: 0.3,
-      ease: 'power2.inOut',
-      onComplete: () => {
-        gsap.to(`#text-${index}`, {
-          opacity: 1,
-          duration: 0.3,
-          ease: 'power2.inOut',
-        });
-      },
-    });
+
   };
 
   const handleCanvasClick = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -134,6 +130,7 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
     }
   };
 
+  //on click button to go to another period
   const handleOnClick = (index: number) => {
     goToPeriod(index)
   }
