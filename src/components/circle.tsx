@@ -46,22 +46,22 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
 
     // Draw the circle
     context.beginPath();
-    context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+    context.arc(centerX, centerY, radius, 0, 5 * Math.PI);
     context.strokeStyle = 'lightgray';
     context.stroke();
 
 
     // Draw evenly distributed points on the circle
     for (let i = 0; i <= numberOfPoints; i++) {
-    const angle = (i / numberOfPoints) * 5 * Math.PI;
+    const angle = (i / numberOfPoints) * 2 * Math.PI;
       const x = centerX + radius * Math.cos(angle);
       const y = centerY + radius * Math.sin(angle);
 
-      context.fillStyle = i === hoveredPoint ? 'white' : 'black';
+      context.fillStyle = i === hoveredPoint ? 'white' : 'grey';
       context.strokeStyle = i === hoveredPoint ? 'grey' : 'grey';
 
       context.beginPath();
-      context.arc(x, y, i === hoveredPoint ? 20 : 3, 0, 2 * Math.PI); 
+      context.arc(x, y, i === hoveredPoint ? 20 : 2, 0, 2 * Math.PI); 
       context.fill();
 
   
@@ -77,15 +77,15 @@ const Circle: React.FC<CircleProps> = ({ goToPeriod, index, width, height, numbe
         context.fill();
 
         // Display the index text at the fixed coordinates
-        context.fillStyle = '#365180';
-        context.font = '12px Arial';
+        context.fillStyle = 'grey';
+        context.font = '20px Arial';
         context.textAlign = 'center';
         context.textBaseline = 'middle';
         context.fillText(`${index}`, textX, textY);
       }
     
       if (i === hoveredPoint) {
-        context.fillStyle = '#365180';
+        context.fillStyle = 'grey';
         context.font = '12px Arial';
         context.textAlign = 'center';
         context.textBaseline = 'middle';
